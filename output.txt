@@ -1,0 +1,16 @@
+{ 'kind': 'identitytoolkit#GetAccountInfoResponse',
+ 'users': 
+ [{ 'localId': 'P8tmxy5XcGgPElHAwUbM3PXlXMi1',
+  'email': 'anand.shivam44@yahoo.com',
+   'passwordHash': 'UkVEQUNURUQ=',
+    'emailVerified': True, 
+    'passwordUpdatedAt': 1605626105231,
+     'providerUserInfo': 
+     [{ 'providerId': 'password', 
+     'federatedId': 'anand.shivam44@yahoo.com',
+      'email': 'anand.shivam44@yahoo.com',
+       'rawId': 'anand.shivam44@yahoo.com' }],
+        'validSince': '1605626105',
+         'lastLoginAt': '1605629108011',
+          'createdAt': '1605626105231',
+           'lastRefreshAt': '2020-11-17T16:05:08.011Z' }] }
