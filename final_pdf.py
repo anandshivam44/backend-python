@@ -19,9 +19,9 @@ async def pdf():
     for row in rows:
         if dd.get(row[0]) == None:
             dd[row[0]] = {}
-            dd[row[0]]["type_of_archive"] = row[1]
-        else:
-            dd[row[0]]["type_of_archive"] = row[1]
+        #     dd[row[0]]["type_of_archive"] = row[1]
+        # else:
+        #     dd[row[0]]["type_of_archive"] = row[1]
 
         if dd[row[0]].get("list_of_pdfs") == None:
             dd[row[0]]["list_of_pdfs"] = {}
@@ -39,3 +39,33 @@ async def pdf():
 
 if __name__ == "__main__":
     uvicorn.run(app, host="127.0.0.1", port=8000)
+
+
+'''
+SAMPLE OUTPUT
+------------------------
+
+
+{
+    "Mechanical": {
+        "list_of_pdfs": {
+            "0": {
+                "url": "https://google.com",
+                "name": "Google"
+            },
+            "1": {
+                "url": "https://flipkart.com",
+                "name": "Flipkart"
+            }
+        }
+    },
+    "Production": {
+        "list_of_pdfs": {
+            "0": {
+                "url": "https://yahoo.com",
+                "name": "Yahoo"
+            }
+        }
+    }
+}
+'''
