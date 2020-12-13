@@ -17,12 +17,16 @@ class AuthInfo(BaseModel):
 app = FastAPI(debug=True)
 
 
-class AuthInfo(BaseModel):
-    email: str
-    password: str
-
-
-firebaseConfig = {}//paste config files here
+firebaseConfig = {
+    'apiKey': "AIzaSyCkMZu9DYzKwS_8DVdiu4ogI-11PNIO5Jc",
+    'authDomain': "python-with-firebase-95dc9.firebaseapp.com",
+    'databaseURL': "https://python-with-firebase-95dc9.firebaseio.com",
+    'projectId': "python-with-firebase-95dc9",
+    'storageBucket': "python-with-firebase-95dc9.appspot.com",
+    'messagingSenderId': "720944308267",
+    'appId': "1:720944308267:web:3d78a7be15b64bf591ca6e",
+    'measurementId': "G-T64D7V28EJ"
+}#paste config files here
 firebase = pyrebase.initialize_app(firebaseConfig)
 # db = firebase.database()
 auth = firebase.auth()
