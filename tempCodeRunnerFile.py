@@ -1,2 +1,5 @@
-url: str = "https://google.com"
-    name: str = "I am pdf name"
+@app.get("/pdf/")
+# async def pdf():
+#     s = internship.select()
+#     result = conn.execute(s)
+#     return {}

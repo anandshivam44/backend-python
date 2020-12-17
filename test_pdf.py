@@ -10,14 +10,14 @@ conn = psycopg2.connect(database="df912qntf815eh", user="qntcbpuyzvkslk",
                         host="ec2-3-210-23-22.compute-1.amazonaws.com", port="5432")
 
 
-database="df912qntf815eh" 
-user="qntcbpuyzvkslk",
-password="39b05f0abc02099fbed2afd0470964064380bc2a0a712cf125a939d4d3de5c49",
-host="ec2-3-210-23-22.compute-1.amazonaws.com"
-port="5432"
+# database="df912qntf815eh" 
+# user="qntcbpuyzvkslk",
+# password="39b05f0abc02099fbed2afd0470964064380bc2a0a712cf125a939d4d3de5c49",
+# host="ec2-3-210-23-22.compute-1.amazonaws.com"
+# port="5432"
 
 
-# cur = conn.cursor()
+cur = conn.cursor()
 
 
 class Pdf(BaseModel):
@@ -42,25 +42,25 @@ class AllQuestionPaper(BaseModel):
 class Test(BaseModel):
     text: List[str] = "Hello"
 
+class Anubhaw(BaseModel):
+    id:int=0
+    title:str ="null"
+    url:str = "null"
 
-@app.get("/pdf/")
-async def pdf():
-    cur.execute("SELECT BRANCH, CATEGORY, URL, NAME  from PDF")
+
+@app.get("/internship/")
+async def internship():
+    cur.execute("SELECT TITLE,URL from INTERNSHIP")
     rows = cur.fetchall()
-    # dd = {
-    #     "branch_name": "Null",
-    #     "branch_archive": {
-    #         "type_of_archive": "Null",
-    #         "list_of_pdfs": {
-    #             '0': {
-    #                 'url': "None",
-    #                 'name': 'None'
-    #             }
-    #         }
-    #     }
-    # }
-    dd = AllQuestionPaper()
+    i=0
+    dd : List[Anubhaw]=[]
     for row in rows:
+        aa=Anubhaw()
+        aa.id=i
+        i=i+1
+        aa.title=row[0]
+        aa.url=row[1]
+        dd.append(aa)
 
 
     #     aa.url = row[2]

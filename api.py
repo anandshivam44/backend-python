@@ -10,81 +10,59 @@ conn = psycopg2.connect(database="df912qntf815eh", user="qntcbpuyzvkslk",
                         host="ec2-3-210-23-22.compute-1.amazonaws.com", port="5432")
 cur = conn.cursor()
 
+
+class InternshipModel(BaseModel):
+    id: int = 0
+    title: str = "null"
+    url: str = "null"
+
+
+class PDFModel(BaseModel):
+    id: int = 0
+    branch: str = "null"
+    # semester: str = "null"
+    category: str = "null"
+    url: str = "null"
+    name:str="null"
+
+
 @app.get("/internship/")
 async def internship():
-    cur.execute("SELECT TITLE, URL  from INTERNSHIP")
+    cur.execute("SELECT TITLE,URL from INTERNSHIP")
     rows = cur.fetchall()
-    internship_json = {}
-    i=0
-
+    i = 0
+    internship_json: List[InternshipModel] = []
     for row in rows:
-
-        if internship_json.get(row[0]) == None:
-            internship_json[i] = {}
-            internship_json[i]["titlle"]=row[0]
-            internship_json[i]["url"]=row[1]
-        else:
-            internship_json[i]["titlle"]=row[0]
-            internship_json[i]["url"]=row[1]
-        i=i+1
+        internship_item = InternshipModel()
+        internship_item.id = i
+        i = i+1
+        internship_item.title = row[0]
+        internship_item.category = row[1]
+        internship_json.append(internship_item)
 
     # print(internship_json)
     return internship_json
+
 
 @app.get("/pdf/")
 async def pdf():
     cur.execute("SELECT BRANCH, CATEGORY, URL, NAME  from PDF")
     rows = cur.fetchall()
-    dd = {}
-
+    PDF_json: List[PDFModel] = []
+    i=0
     for row in rows:
-        if dd.get(row[0]) == None:
-            dd[row[0]] = {}
-        #     dd[row[0]]["type_of_archive"] = row[1]
-        # else:
-        #     dd[row[0]]["type_of_archive"] = row[1]
-
-        if dd[row[0]].get("list_of_pdfs") == None:
-            dd[row[0]]["list_of_pdfs"] = {}
-            dd[row[0]]["list_of_pdfs"][0] = {}
-            dd[row[0]]["list_of_pdfs"][0]["url"] = row[2]
-            dd[row[0]]["list_of_pdfs"][0]["name"] = row[3]
-        else:
-            n = len(dd[row[0]]["list_of_pdfs"].keys())
-            print('n = ', n)
-            dd[row[0]]["list_of_pdfs"][n] = {}
-            dd[row[0]]["list_of_pdfs"][n]["url"] = row[2]
-            dd[row[0]]["list_of_pdfs"][n]["name"] = row[3]
-    return dd
+        PDF_item = PDFModel()
+        PDF_item.id = i
+        i = i+1
+        PDF_item.branch=row[0]
+        # PDF_item.semester
+        PDF_item.category=row[1]
+        PDF_item.url=row[2]
+        PDF_item.name=row[3]
+        PDF_json.append(PDF_item)
+        
+    return PDF_json
 
 
 if __name__ == "__main__":
     uvicorn.run(app, host="127.0.0.1", port=8000)
-
-
-'''
-SAMPLE OUTPUT
-------------------------
-{
-    "Mechanical": {
-        "list_of_pdfs": {
-            "0": {
-                "url": "https://google.com",
-                "name": "Google"
-            },
-            "1": {
-                "url": "https://flipkart.com",
-                "name": "Flipkart"
-            }
-        }
-    },
-    "Production": {
-        "list_of_pdfs": {
-            "0": {
-                "url": "https://yahoo.com",
-                "name": "Yahoo"
-            }
-        }
-    }
-}
-'''
