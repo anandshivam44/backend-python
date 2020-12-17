@@ -37,7 +37,7 @@ async def internship():
         internship_item.id = i
         i = i+1
         internship_item.title = row[0]
-        internship_item.category = row[1]
+        internship_item.url = row[1]
         internship_json.append(internship_item)
 
     # print(internship_json)
@@ -65,4 +65,4 @@ async def pdf():
 
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="127.0.0.1", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=8000)
