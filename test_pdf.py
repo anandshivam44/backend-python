@@ -8,7 +8,16 @@ app = FastAPI(debug=True)
 conn = psycopg2.connect(database="df912qntf815eh", user="qntcbpuyzvkslk",
                         password="39b05f0abc02099fbed2afd0470964064380bc2a0a712cf125a939d4d3de5c49",
                         host="ec2-3-210-23-22.compute-1.amazonaws.com", port="5432")
-cur = conn.cursor()
+
+
+database="df912qntf815eh" 
+user="qntcbpuyzvkslk",
+password="39b05f0abc02099fbed2afd0470964064380bc2a0a712cf125a939d4d3de5c49",
+host="ec2-3-210-23-22.compute-1.amazonaws.com"
+port="5432"
+
+
+# cur = conn.cursor()
 
 
 class Pdf(BaseModel):
@@ -50,28 +59,9 @@ async def pdf():
     #         }
     #     }
     # }
-    dd = {}
-
-    # dd = AllQuestionPaper()
+    dd = AllQuestionPaper()
     for row in rows:
-        # dd['branch'] = row[0]
-        if dd.get(row[0]) == None:
-            dd[row[0]] = {}
-            dd[row[0]]["type_of_archive"] = row[1]
-        else:
-            dd[row[0]]["type_of_archive"] = row[1]
 
-        if dd[row[0]].get("list_of_pdfs") == None:
-            dd[row[0]]["list_of_pdfs"] = {}
-            dd[row[0]]["list_of_pdfs"][0] = {}
-            dd[row[0]]["list_of_pdfs"][0]["url"] = row[2]
-            dd[row[0]]["list_of_pdfs"][0]["name"] = row[3]
-        else:
-            n = len(dd[row[0]]["list_of_pdfs"].keys())
-            print('n = ', n)
-            dd[row[0]]["list_of_pdfs"][n] = {}
-            dd[row[0]]["list_of_pdfs"][n]["url"] = row[2]
-            dd[row[0]]["list_of_pdfs"][n]["name"] = row[3]
 
     #     aa.url = row[2]
     #     aa.name = row[3]

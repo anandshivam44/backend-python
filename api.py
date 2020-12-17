@@ -28,7 +28,7 @@ async def internship():
             internship_json[i]["url"]=row[1]
         i=i+1
 
-    print(internship_json)
+    # print(internship_json)
     return internship_json
 
 @app.get("/pdf/")
