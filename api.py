@@ -10,6 +10,27 @@ conn = psycopg2.connect(database="df912qntf815eh", user="qntcbpuyzvkslk",
                         host="ec2-3-210-23-22.compute-1.amazonaws.com", port="5432")
 cur = conn.cursor()
 
+@app.get("/internship/")
+async def internship():
+    cur.execute("SELECT TITLE, URL  from INTERNSHIP")
+    rows = cur.fetchall()
+    internship_json = {}
+    i=0
+
+    for row in rows:
+
+        if internship_json.get(row[0]) == None:
+            internship_json[i] = {}
+            internship_json[i]["titlle"]=row[0]
+            internship_json[i]["url"]=row[1]
+        else:
+            internship_json[i]["titlle"]=row[0]
+            internship_json[i]["url"]=row[1]
+        i=i+1
+
+    print(internship_json)
+    return internship_json
+
 @app.get("/pdf/")
 async def pdf():
     cur.execute("SELECT BRANCH, CATEGORY, URL, NAME  from PDF")
