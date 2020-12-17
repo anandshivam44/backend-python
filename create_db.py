@@ -15,10 +15,10 @@ cur = conn.cursor()
 #       CATEGORY            TEXT    ,
 #       URL        TEXT,
 #       NAME         TEXT);''')
-cur.execute('''CREATE TABLE INTERNSHIP
-      (TITLE           TEXT     ,
-      URL        TEXT);''')
-print ("Table created successfully")
+cur.execute('''CREATE TABLE LOSTFOUND
+      (id SERIAL PRIMARY KEY,
+       TITLE           TEXT);''')
+print("Table created successfully")
 
 conn.commit()
 conn.close()

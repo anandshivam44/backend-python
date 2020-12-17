@@ -10,17 +10,13 @@ with open('internship.csv', 'r') as file:
     for row in reader:
         # cur.execute("INSERT INTO PDF (BRANCH,CATEGORY,URL,NAME) \
         #     VALUES ('"+row[0]+"', '"+row[1]+"', '"+row[2]+"', '"+row[3]+"' )")
-        cur.execute("INSERT INTO INTERNSHIP (TITLE,URL) \
-            VALUES ('"+row[0]+"', '"+row[1]+"' )")
+        cur.execute("INSERT INTO students (title) \
+            VALUES ('"+row[0]+"' )")
         print(row[0])
-        print(row[1])
+        # print(row[1])
         # print(row[2])
         # print(row[3])
 
 conn.commit()
-print ("Records created successfully")
+print("Records created successfully")
 conn.close()
-
-
-
-

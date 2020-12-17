@@ -1,5 +1,6 @@
 from typing import List
 import databases
+# import psycopg2
 import sqlalchemy
 from fastapi import FastAPI, status
 from fastapi.middleware.cors import CORSMiddleware
@@ -9,6 +10,11 @@ import urllib
 from dotenv import load_dotenv
 load_dotenv() 
 #I want to show data  in the left of screen to API okay
+import ssl
+
+ctx = ssl.create_default_context(cafile='')
+ctx.check_hostname = False
+ctx.verify_mode = ssl.CERT_NONE
 
 host_server = os.environ.get('host_server')
 db_server_port = urllib.parse.quote_plus(str(os.environ.get('db_server_port')))
@@ -19,11 +25,11 @@ ssl_mode = urllib.parse.quote_plus(str(os.environ.get('ssl_mode')))
 # DATABASE_URL = 'postgresql://{}:{}@{}:{}/{}?sslmode={}'.format(db_username, db_password, host_server, db_server_port, database_name, ssl_mode)
 DATABASE_URL = 'postgres://qntcbpuyzvkslk:39b05f0abc02099fbed2afd0470964064380bc2a0a712cf125a939d4d3de5c49@ec2-3-210-23-22.compute-1.amazonaws.com:5432/df912qntf815eh?sslmode=disable'
 
-conn = psycopg2.connect(database="df912qntf815eh", user="qntcbpuyzvkslk",
-                        password="39b05f0abc02099fbed2afd0470964064380bc2a0a712cf125a939d4d3de5c49",
-                        host="ec2-3-210-23-22.compute-1.amazonaws.com", port="5432")
-# database = databases.Database(DATABASE_URL)
-cur = conn.cursor()
+# conn = psycopg2.connect(database="df912qntf815eh", user="qntcbpuyzvkslk",
+#                         password="39b05f0abc02099fbed2afd0470964064380bc2a0a712cf125a939d4d3de5c49",
+#                         host="ec2-3-210-23-22.compute-1.amazonaws.com", port="5432")
+database = databases.Database(DATABASE_URL,  ssl=ctx)
+# cur = conn.cursor()
 metadata = sqlalchemy.MetaData()
 
 table = sqlalchemy.Table(
@@ -38,7 +44,7 @@ table = sqlalchemy.Table(
 )
 
 engine = sqlalchemy.create_engine(
-    DATABASE_URL, pool_size=3, max_overflow=0
+    'postgres://qntcbpuyzvkslk:39b05f0abc02099fbed2afd0470964064380bc2a0a712cf125a939d4d3de5c49@ec2-3-210-23-22.compute-1.amazonaws.com:5432/df912qntf815eh', pool_size=3, max_overflow=0
 )
 metadata.create_all(engine)
 # this class NoteIn is used to take input for quering in the database.
