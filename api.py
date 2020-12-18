@@ -11,6 +11,12 @@ conn = psycopg2.connect(database="df912qntf815eh", user="qntcbpuyzvkslk",
 cur = conn.cursor()
 
 
+class HackathonModel(BaseModel):
+    id: int = 0
+    title: str = "null"
+    url: str = "null"
+
+
 class InternshipModel(BaseModel):
     id: int = 0
     title: str = "null"
@@ -30,6 +36,24 @@ class PDFModel(BaseModel):
     category: str = "null"
     url: str = "null"
     name: str = "null"
+
+
+@app.get("/hackathon/")
+async def workshop():
+    cur.execute("SELECT ID,TITLE,URL from HACKATHON")
+    rows = cur.fetchall()
+    # i = 0
+    hackathon_json: List[HackathonModel] = []
+    for row in rows:
+        hackathon_item = WorkshopModel()
+        hackathon_item.id = row[0]
+        hackathon_item.title = row[1]
+        hackathon_item.url = row[2]
+        hackathon_json.append(hackathon_item)
+
+    # print(internship_json)
+    return hackathon_json
+
 
 
 @app.get("/workshop/")

@@ -5,12 +5,12 @@ conn = psycopg2.connect(database="df912qntf815eh", user="qntcbpuyzvkslk",
                         host="ec2-3-210-23-22.compute-1.amazonaws.com", port="5432")
 cur = conn.cursor()
 
-with open('workshop.csv', 'r') as file:
+with open('hackathon.csv', 'r') as file:
     reader = csv.reader(file)
     for row in reader:
         # cur.execute("INSERT INTO PDF (BRANCH,CATEGORY,URL,NAME) \
         #     VALUES ('"+row[0]+"', '"+row[1]+"', '"+row[2]+"', '"+row[3]+"' )")
-        cur.execute("INSERT INTO workshop (title,url) \
+        cur.execute("INSERT INTO hackathon (title,url) \
             VALUES ('"+row[0]+"' , '"+row[1]+"')")
         print(row[0])
         print(row[1])

@@ -15,7 +15,7 @@ cur = conn.cursor()
 #       CATEGORY            TEXT    ,
 #       URL        TEXT,
 #       NAME         TEXT);''')
-cur.execute('''CREATE TABLE WORKSHOP
+cur.execute('''CREATE TABLE HACKATHON
       (id SERIAL PRIMARY KEY,
        TITLE           TEXT,
        URL TEXT);''')
