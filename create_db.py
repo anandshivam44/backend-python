@@ -15,10 +15,19 @@ cur = conn.cursor()
 #       CATEGORY            TEXT    ,
 #       URL        TEXT,
 #       NAME         TEXT);''')
-cur.execute('''CREATE TABLE HACKATHON
-      (id SERIAL PRIMARY KEY,
-       TITLE           TEXT,
-       URL TEXT);''')
+cur.execute('''CREATE TABLE lostfound
+      (id serial primary key,
+       category text,
+       brand text,
+       main_color text,
+       second_color text,
+       description text,
+       date_found text,
+       found_location text,
+       found_suite_no text ,
+       message_me  text,
+       drooped_off  text,
+       Note text);''')
 print("Table created successfully")
 
 conn.commit()

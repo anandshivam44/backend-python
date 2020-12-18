@@ -28,6 +28,20 @@ class WorkshopModel(BaseModel):
     title: str = "null"
     url: str = "null"
 
+class LostFoundModel(BaseModel):
+    id: int = 0
+    category: str = "null"
+    brand: str = "null"
+    main_color: str = "null"
+    second_color: str = "null"
+    description: str = "null"
+    date_found: str = "null"
+    found_location: str = "null"
+    found_suite_no: str = "null"
+    message_me: str = "null"
+    drooped_off: str = "null"
+    Note: str = "null"
+
 
 class PDFModel(BaseModel):
     id: int = 0
@@ -71,6 +85,28 @@ async def workshop():
 
     # print(internship_json)
     return workshop_json
+
+@app.get("/lostfound/")
+async def lostfound():
+    cur.execute("SELECT ID,category ,brand ,main_color ,second_color ,description ,date_found ,found_location ,found_suite_no  ,message_me  ,drooped_off  ,Note from lostfound")
+    rows = cur.fetchall()
+    lostfound_json: List[LostFoundModel] = []
+    for row in rows:
+        lostfound_item = LostFoundModel()
+        lostfound_item.id = row[0]
+        lostfound_item.category = row[1]
+        lostfound_item.brand = row[2]
+        lostfound_item.main_color = row[3]
+        lostfound_item.second_color = row[4]
+        lostfound_item.description = row[5]
+        lostfound_item.date_found = row[6]
+        lostfound_item.found_location = row[7]
+        lostfound_item.found_suite_no = row[8]
+        lostfound_item.message_me = row[9]
+        lostfound_item.drooped_off = row[10]
+        lostfound_item.Note = row[11]
+        lostfound_json.append(lostfound_item)
+    return lostfound_json
 
 
 @app.get("/internship/")
