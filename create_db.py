@@ -15,9 +15,10 @@ cur = conn.cursor()
 #       CATEGORY            TEXT    ,
 #       URL        TEXT,
 #       NAME         TEXT);''')
-cur.execute('''CREATE TABLE LOSTFOUND
+cur.execute('''CREATE TABLE WORKSHOP
       (id SERIAL PRIMARY KEY,
-       TITLE           TEXT);''')
+       TITLE           TEXT,
+       URL TEXT);''')
 print("Table created successfully")
 
 conn.commit()

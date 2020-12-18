@@ -17,13 +17,36 @@ class InternshipModel(BaseModel):
     url: str = "null"
 
 
+class WorkshopModel(BaseModel):
+    id: int = 0
+    title: str = "null"
+    url: str = "null"
+
+
 class PDFModel(BaseModel):
     id: int = 0
     branch: str = "null"
     # semester: str = "null"
     category: str = "null"
     url: str = "null"
-    name:str="null"
+    name: str = "null"
+
+
+@app.get("/workshop/")
+async def workshop():
+    cur.execute("SELECT ID,TITLE,URL from WORKSHOP")
+    rows = cur.fetchall()
+    # i = 0
+    workshop_json: List[WorkshopModel] = []
+    for row in rows:
+        workshop_item = WorkshopModel()
+        workshop_item.id = row[0]
+        workshop_item.title = row[1]
+        workshop_item.url = row[2]
+        workshop_json.append(workshop_item)
+
+    # print(internship_json)
+    return workshop_json
 
 
 @app.get("/internship/")
@@ -49,18 +72,18 @@ async def pdf():
     cur.execute("SELECT BRANCH, CATEGORY, URL, NAME  from PDF")
     rows = cur.fetchall()
     PDF_json: List[PDFModel] = []
-    i=0
+    i = 0
     for row in rows:
         PDF_item = PDFModel()
         PDF_item.id = i
         i = i+1
-        PDF_item.branch=row[0]
+        PDF_item.branch = row[0]
         # PDF_item.semester
-        PDF_item.category=row[1]
-        PDF_item.url=row[2]
-        PDF_item.name=row[3]
+        PDF_item.category = row[1]
+        PDF_item.url = row[2]
+        PDF_item.name = row[3]
         PDF_json.append(PDF_item)
-        
+
     return PDF_json
 
 

@@ -1,5 +1,2 @@
-@app.get("/pdf/")
-# async def pdf():
-#     s = internship.select()
-#     result = conn.execute(s)
-#     return {}
+print(row[0])
+        print(row[1])
